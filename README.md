@@ -1,4 +1,4 @@
-# BelongsToHstore
+# BelongsToHstore [![Build Status](https://travis-ci.org/evanlok/belongs_to_hstore.png?branch=master)](https://travis-ci.org/evanlok/belongs_to_hstore)
 
 Create ActiveRecord belongs_to associations using postgresql hstore columns. Compatible with polymorphic associations
 and supports eager loading.
