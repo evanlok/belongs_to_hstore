@@ -23,6 +23,8 @@ Or install it yourself as:
 Create an association using an hstore column:
 ```ruby
 class Audit < ActiveRecord::Base
+  serialize :properties, ActiveRecord::Coders::Hstore # Rails 3 only
+
   belongs_to_hstore :properties, :item
 end
 ```
