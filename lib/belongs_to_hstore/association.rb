@@ -28,7 +28,7 @@ module BelongsToHstore
       end
     end
 
-    def [](attr_name)
+    def read_attribute(attr_name)
       if self.class.belongs_to_hstore_attributes.include?(attr_name.to_s)
         send(attr_name)
       else
@@ -36,7 +36,7 @@ module BelongsToHstore
       end
     end
 
-    def []=(attr_name, attr_value)
+    def write_attribute(attr_name, attr_value)
       if self.class.belongs_to_hstore_attributes.include?(attr_name.to_s)
         send("#{attr_name}=", attr_value.to_s)
       else
