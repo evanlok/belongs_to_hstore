@@ -6,7 +6,7 @@ module BelongsToHstore
   class Railtie < Rails::Railtie
     initializer "belongs_to_hstore.active_record" do
       ActiveSupport.on_load :active_record do
-        ActiveRecord::Base.include BelongsToHstore::Association
+        ActiveRecord::Base.send :include, BelongsToHstore::Association
       end
     end
   end
