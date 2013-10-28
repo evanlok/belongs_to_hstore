@@ -1,11 +1,13 @@
 # BelongsToHstore
 
-TODO: Write a gem description
+Create ActiveRecord belongs_to associations using postgresql hstore columns. Compatible with polymorphic associations
+and supports eager loading.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
+    gem 'activerecord-postgres-hstore' # Rails 3 only
     gem 'belongs_to_hstore'
 
 And then execute:
@@ -18,11 +20,6 @@ Or install it yourself as:
 
 ## Usage
 
-Add to Gemfile
-```ruby
-gem 'belongs_to_hstore'
-```
-
 Create an association using an hstore column:
 ```ruby
 class Audit < ActiveRecord::Base
@@ -33,6 +30,8 @@ end
 Works for polymorphic associations too:
 ```ruby
 class Audit < ActiveRecord::Base
+  serialize :properties, ActiveRecord::Coders::Hstore # Rails 3 only
+
   belongs_to_hstore :properties, :item, :polymorphic => true
 end
 ```
