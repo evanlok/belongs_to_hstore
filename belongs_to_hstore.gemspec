@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["elok45@gmail.com"]
   spec.description   = %q{Allows hstore columns to store belongs_to association foreign keys with the same functionality as the default belongs_to}
   spec.summary       = %q{Allows hstore columns to store belongs_to associations}
-  spec.homepage      = "http://github.com/evanlok/belongs_to_hstore"
+  spec.homepage      = "https://github.com/evanlok/belongs_to_hstore"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

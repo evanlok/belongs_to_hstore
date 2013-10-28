@@ -1,5 +1,5 @@
 module BelongsToHstore
-  module Associations
+  module Association
     extend ActiveSupport::Concern
     include BelongsToHstore::HstoreQueryHelper
 
