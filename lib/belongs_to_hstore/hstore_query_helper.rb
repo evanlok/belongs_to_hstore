@@ -1,5 +1,5 @@
 module BelongsToHstore
-  class HstoreQueryHelper
+  module HstoreQueryHelper
     extend ActiveSupport::Concern
 
     module ClassMethods
