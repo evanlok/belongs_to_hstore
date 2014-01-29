@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 class Widget < ActiveRecord::Base
+  include BelongsToHstore::Association
+
   serialize :properties, Hash
 
   belongs_to_hstore :properties, :item
