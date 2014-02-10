@@ -6,6 +6,9 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 Dir[File.expand_path("spec/support/**/*.rb")].each { |f| require f }
 require 'belongs_to_hstore'
+require 'coveralls'
+
+Coveralls.wear!
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
