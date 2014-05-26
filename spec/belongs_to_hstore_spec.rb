@@ -10,7 +10,7 @@ class Widget < ActiveRecord::Base
 end
 
 class ExtendedWidget < Widget
-  belongs_to_hstore :properties, :additonal_item, :class_name => 'Item'
+  belongs_to_hstore :properties, :additional_item, :class_name => 'Item'
 end
 
 class Item < ActiveRecord::Base
@@ -62,14 +62,14 @@ describe BelongsToHstore do
     end
 
     it 'sets/gets properties from subclass' do
-      extended_widget.additonal_item = item
-      extended_widget.properties['additonal_item_id'].should == item.id.to_s
-      extended_widget.additonal_item.should == item
+      extended_widget.additional_item = item
+      extended_widget.properties['additional_item_id'].should == item.id.to_s
+      extended_widget.additional_item.should == item
     end
 
     it 'does not add subclass properties to base class' do
-      expect{widget.additonal_item = item}.to raise_error(NameError)
-      expect{widget.additonal_item}.to raise_error(NameError)
+      expect{widget.additional_item = item}.to raise_error(NameError)
+      expect{widget.additional_item}.to raise_error(NameError)
       Widget.belongs_to_hstore_attributes.should include('item_id')
       Widget.belongs_to_hstore_attributes.should_not include('additional_item_id')
     end
@@ -77,8 +77,8 @@ describe BelongsToHstore do
 
   context 'preload associations' do
     it 'works with includes' do
-      5.times { ExtendedWidget.create(:name => 'preload', :item => item, :additonal_item => extra_item) }
-      widgets = ExtendedWidget.where(:name => 'preload').includes(:item, :additonal_item).to_a
+      5.times { ExtendedWidget.create(:name => 'preload', :item => item, :additional_item => extra_item) }
+      widgets = ExtendedWidget.where(:name => 'preload').includes(:item, :additional_item).to_a
       expect(widgets.size).to eq(5)
       expect(widgets[0].item).to eq(widgets[1].item)
     end
