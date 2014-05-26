@@ -18,6 +18,7 @@ end
 
 describe BelongsToHstore do
   let(:item) { Item.create }
+  let(:extra_item) { Item.create(:name=>'extra') }
   let(:widget) { Widget.new }
   let(:extended_widget) { ExtendedWidget.new }
 
@@ -71,6 +72,15 @@ describe BelongsToHstore do
       expect{widget.additonal_item}.to raise_error(NameError)
       Widget.belongs_to_hstore_attributes.should include('item_id')
       Widget.belongs_to_hstore_attributes.should_not include('additional_item_id')
+    end
+  end
+
+  context 'preload associations' do
+    it 'works with includes' do
+      5.times { ExtendedWidget.create(:name => 'preload', :item => item, :additonal_item => extra_item) }
+      widgets = ExtendedWidget.where(:name => 'preload').includes(:item, :additonal_item).to_a
+      expect(widgets.size).to eq(5)
+      expect(widgets[0].item).to eq(widgets[1].item)
     end
   end
 
