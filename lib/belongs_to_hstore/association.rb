@@ -17,11 +17,11 @@ module BelongsToHstore
         key_type = key.gsub(/_id$/, '_type')
 
         store_accessor store_attribute, key.to_s
-        self.belongs_to_hstore_attributes[key.to_s]= true
+        self.belongs_to_hstore_attributes[key.to_s]= Integer
 
         if options[:polymorphic]
           store_accessor store_attribute, key_type
-          self.belongs_to_hstore_attributes[key_type]= true
+          self.belongs_to_hstore_attributes[key_type]= String
         end
 
         belongs_to name, options
@@ -34,8 +34,12 @@ module BelongsToHstore
     end
 
     def read_attribute(attr_name)
-      if self.class.belongs_to_hstore_attributes[attr_name]
-        send(attr_name)
+      if attr_type = self.class.belongs_to_hstore_attributes[attr_name]
+        attr_value = send(attr_name)
+        if attr_type == Integer
+          attr_value = (attr_value.is_a?(String) && attr_value.empty?) ? nil : attr_value.to_i
+        end
+        attr_value
       else
         super
       end
