@@ -24,7 +24,11 @@ module BelongsToHstore
           self.belongs_to_hstore_attributes[key_type]= String
         end
 
-        belongs_to name, options
+        if options = {}
+          belongs_to name
+        else
+          belongs_to name, options
+        end
 
         define_singleton_method("where_#{store_attribute}") do |options|
           where_hstore(store_attribute, options)
