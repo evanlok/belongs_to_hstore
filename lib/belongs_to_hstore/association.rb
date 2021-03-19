@@ -24,7 +24,7 @@ module BelongsToHstore
           self.belongs_to_hstore_attributes[key_type]= String
         end
 
-        if options = {}
+        if options == {}
           belongs_to name
         else
           belongs_to name, options
