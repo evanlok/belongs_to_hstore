@@ -2,14 +2,13 @@ module BelongsToHstore
   module Association
     extend ActiveSupport::Concern
     include BelongsToHstore::HstoreQueryHelper
-
     included do
       class_attribute :belongs_to_hstore_attributes, instance_accessor: false, instance_predicate: false
       self.belongs_to_hstore_attributes = {}
     end
 
     module ClassMethods
-      def belongs_to_hstore(store_attribute, name, options={})
+      def belongs_to_hstore(store_attribute, name, options = {})
 
         self.belongs_to_hstore_attributes = self.belongs_to_hstore_attributes.dup
 
@@ -17,18 +16,14 @@ module BelongsToHstore
         key_type = key.gsub(/_id$/, '_type')
 
         store_accessor store_attribute, key.to_s
-        self.belongs_to_hstore_attributes[key.to_s]= Integer
+        self.belongs_to_hstore_attributes[key.to_s] = Integer
 
         if options[:polymorphic]
           store_accessor store_attribute, key_type
-          self.belongs_to_hstore_attributes[key_type]= String
+          self.belongs_to_hstore_attributes[key_type] = String
         end
 
-        if options == {}
-          belongs_to name
-        else
-          belongs_to name, options
-        end
+        belongs_to name, nil, **options
 
         define_singleton_method("where_#{store_attribute}") do |options|
           where_hstore(store_attribute, options)
