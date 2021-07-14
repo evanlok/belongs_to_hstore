@@ -32,29 +32,15 @@ module BelongsToHstore
 
     end
 
-    if ActiveRecord::VERSION::STRING.to_f >= 4.2
-      def _read_attribute(attr_name)
-        if attr_type = self.class.belongs_to_hstore_attributes[attr_name]
-          attr_value = send(attr_name)
-          if attr_type == Integer
-            attr_value = (attr_value.is_a?(String) && attr_value.empty?) ? nil : attr_value.to_i
-          end
-          attr_value
-        else
-          super
+    def read_attribute(attr_name)
+      if attr_type = self.class.belongs_to_hstore_attributes[attr_name]
+        attr_value = send(attr_name)
+        if attr_type == Integer
+          attr_value = (attr_value.is_a?(String) && attr_value.empty?) ? nil : attr_value.to_i
         end
-      end
-    else
-      def read_attribute(attr_name)
-        if attr_type = self.class.belongs_to_hstore_attributes[attr_name]
-          attr_value = send(attr_name)
-          if attr_type == Integer
-            attr_value = (attr_value.is_a?(String) && attr_value.empty?) ? nil : attr_value.to_i
-          end
-          attr_value
-        else
-          super
-        end
+        attr_value
+      else
+        super
       end
     end
 
